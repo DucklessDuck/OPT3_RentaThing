@@ -21,16 +21,6 @@ public class Drill extends Product{
     }
 
     //Getters and setters for modifying and information gathering
-    @Override
-    public Double getRent() {
-        return super.getRent();
-    }
-
-    @Override
-    public Double getInsurancePerDay() {
-        return super.getInsurancePerDay();
-    }
-
     public String getType() {
         return type;
     }

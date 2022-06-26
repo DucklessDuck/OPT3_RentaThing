@@ -18,16 +18,6 @@ public class PassengerCar extends Product {
 
 
     //Getters and setters for modifying data and data gathering
-    @Override
-    public Double getRent() {
-        return super.getRent();
-    }
-
-    @Override
-    public Double getInsurancePerDay() {
-        return super.getInsurancePerDay();
-    }
-
     public Integer getWeight() {
         return weight;
     }
