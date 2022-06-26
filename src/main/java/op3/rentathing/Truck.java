@@ -5,18 +5,18 @@ public class Truck extends Product{
     private Integer weight, payload;
 
     //Constructor of class
-    public Truck(int productId, String brand, String category, Long description, Double rent, Double insurance, Boolean availability, Integer weight, Integer payload) {
-        super(productId, brand, category, description, rent, insurance, availability);
+    public Truck(String brand, String description, Integer weight, Integer payload) {
+        super(brand, description, 0.10 * payload, 0.01 * weight, true);
         this.weight = weight;
         this.payload = payload;
     }
 
     //Override createProduct() based on class Truck
     @Override
-    public Truck createProduct(int productId, String brand, String category, Long description) {
-        Integer weight = askWeight();
-        Integer payload = askPayload();
-        return new Truck(productId, brand, category, description, calculateRent(payload), calculateInsurance(weight), true, weight, payload);
+    public Truck createProduct(String brand, String description) {
+        Integer weight = Menu.askWeight();
+        Integer payload = Menu.askPayload();
+        return new Truck(brand, description, weight, payload);
     }
 
     //Getters and setters for modifying data and data gathering
