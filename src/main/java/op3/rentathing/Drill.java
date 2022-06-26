@@ -8,27 +8,27 @@ public class Drill extends Product{
 
 
     //Constructor of class
-    public Drill(int productId, String brand, String category, Long description, Double rent, Double insurancePerDay, Boolean availability, String type) {
-        super(productId, brand, category, description, rent, insurancePerDay, availability);
+    public Drill(String brand, String description, String type) {
+        super(brand, description, 5.0, 1.0,  true);
         this.type = type;
     }
 
     //Creates a new object product based on variables drill (part of the factory method pattern)
     @Override
-    public Drill createProduct(int productId, String brand, String category, Long description){
-        String type = productList.askType();
-        return new Drill(productId, brand, category, description, getRent(), getInsurancePerDay(), true, type);
+    public Drill createProduct(String brand, String description){
+        String type = Menu.askType();
+        return new Drill(brand, description, type);
     }
 
     //Getters and setters for modifying and information gathering
     @Override
     public Double getRent() {
-        return 5.0;
+        return super.getRent();
     }
 
     @Override
     public Double getInsurancePerDay() {
-        return 1.0;
+        return super.getInsurancePerDay();
     }
 
     public String getType() {

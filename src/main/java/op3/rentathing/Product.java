@@ -3,19 +3,17 @@ package op3.rentathing;
 public abstract class Product {
 
     //Variables that are saved in Object "Product"
-    private  int productId = 0;
-    private String brand, category;
-    private Long description;
+    private static int productId = 0;
+    private String brand, description;
     private Double rent, insurancePerDay;;
     private Boolean availability;
 
     ProductList productList;
 
     //Constructor of Product
-    public Product(int productId, String brand, String category, Long description, Double rent, Double insurancePerDay, Boolean availability){
-        this.productId = productId++;
+    public Product(String brand, String description, Double rent, Double insurancePerDay, Boolean availability){
+        this.productId = createUniqueId();
         this.brand = brand;
-        this.category = category;
         this.description = description;
         this.rent = rent;
         this.insurancePerDay = insurancePerDay;
@@ -23,7 +21,11 @@ public abstract class Product {
     }
 
     //Creates a new object product based on variables passengerCar (Using the factory method pattern).
-    public abstract Product createProduct(int productId, String brand, String category, Long description);
+    public abstract Product createProduct(String brand, Long description);
+
+    public int createUniqueId(){
+        return productId++;
+    }
 
     public int getId(){
         return productId;
@@ -37,19 +39,11 @@ public abstract class Product {
         this.brand = brand;
     }
 
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public Long getDescription() {
+    public String getDescription() {
         return description;
     }
 
-    public void setDescription(Long description) {
+    public void setDescription(String description) {
         this.description = description;
     }
 
