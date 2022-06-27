@@ -16,7 +16,6 @@ public class Truck extends Product{
     //Override createProduct() based on class Truck
     @Override
     public Truck createProduct() {
-
         return new Truck(menu.askBrand(), menu.askDescription(), menu.askWeight(), menu.askPayload());
     }
 

@@ -1,12 +1,11 @@
 package op3.rentathing;
 
-import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Menu {
 
-    Scanner scanner;
+    Scanner scanner = new Scanner(System.in);
     private User user;
     private ProductList productList;
     private Drill drill;
@@ -15,34 +14,16 @@ public class Menu {
 
     //Asks for credentials and gives to method logIn();
     public void askLogin(){
-        new Scanner(System.in);
         System.out.println("Enter username: ");
         String givenUsername = scanner.nextLine();
         System.out.println("Enter password: ");
         String givenPassword = scanner.nextLine();
-
-        logIn(givenUsername, givenPassword);
+        user = user.getUser(givenUsername);
+        user.logIn(givenUsername, givenPassword);
     }
 
 
     //Prints menu when user found and given correct credentials
-    private void logIn(String username, String password){
-        for(User user : user.users){
-            if(username.equals(user.getUsername())){
-                if (password.equals((user.getPassword()))){
-                    menu();
-                }
-                else{
-                    System.out.println("Incorrect Password. ");
-                }
-            }
-            else{
-                System.out.println("Incorrect Username. ");
-            }
-        }
-        System.out.println("User not found. ");
-    }
-
     private void logOut(){
         askLogin();
     }
@@ -176,9 +157,7 @@ public class Menu {
                else {
                    menu();
                }
-
        }
-
     }
 
     //Prints all products
