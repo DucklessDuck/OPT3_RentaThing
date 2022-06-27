@@ -2,6 +2,7 @@ package op3.rentathing;
 
 public class PassengerCar extends Product {
     private Integer weight;
+    private Menu menu;
 
     //Constructor of class
     public PassengerCar(String brand, String description, Integer weight) {
@@ -11,9 +12,8 @@ public class PassengerCar extends Product {
 
     //Override createProduct() based on class PassengerCar
     @Override
-    public Product createProduct(String brand, String description){
-       Integer weight = Menu.askWeight();
-       return new PassengerCar(brand, description, weight);
+    public Product createProduct(){
+       return new PassengerCar(menu.askBrand(), menu.askDescription(), menu.askWeight());
     }
 
 

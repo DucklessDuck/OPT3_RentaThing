@@ -4,6 +4,8 @@ public class Truck extends Product{
 
     private Integer weight, payload;
 
+    private Menu menu;
+
     //Constructor of class
     public Truck(String brand, String description, Integer weight, Integer payload) {
         super(brand, description, 0.10 * payload, 0.01 * weight, true);
@@ -13,10 +15,9 @@ public class Truck extends Product{
 
     //Override createProduct() based on class Truck
     @Override
-    public Truck createProduct(String brand, String description) {
-        Integer weight = Menu.askWeight();
-        Integer payload = Menu.askPayload();
-        return new Truck(brand, description, weight, payload);
+    public Truck createProduct() {
+
+        return new Truck(menu.askBrand(), menu.askDescription(), menu.askWeight(), menu.askPayload());
     }
 
     //Getters and setters for modifying data and data gathering
