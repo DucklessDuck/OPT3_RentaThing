@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class ProductList {
     private Menu menu;
     private Product product;
+    private static int productId = 1;
     //Using three lists to store from every category
     private ArrayList<Drill> drillList;
     private ArrayList<PassengerCar>passengerCarList;
@@ -44,6 +45,12 @@ public class ProductList {
                 , 19000, 24000));
     }
 
+    public int createUniqueId(){
+        return productId++;
+    }
+
+
+
     // Search id through every list to get exact product
     public Product getProductById(int id) {
         //Search through drillList
@@ -52,6 +59,7 @@ public class ProductList {
                 return drill;
             }
         }
+
         //Search through passengerCarList
         for (PassengerCar car : passengerCarList) {
             if (car.getId() == id) {

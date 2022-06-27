@@ -5,13 +5,12 @@ import java.util.ArrayList;
 public abstract class Product implements Subject{
 
     //Variables that are saved in Object "Product"
-    private static int productId = 0;
+    private static int productId = 1;
     private String brand, description;
     private Double rent, insurancePerDay;;
     private Boolean availability;
     private ArrayList<Observer> observers;
 
-    ProductList productList;
 
     //Constructor of Product
     public Product(String brand, String description, Double rent, Double insurancePerDay, Boolean availability){

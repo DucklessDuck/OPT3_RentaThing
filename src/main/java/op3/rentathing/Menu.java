@@ -1,27 +1,58 @@
 package op3.rentathing;
 
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Menu {
 
     Scanner scanner = new Scanner(System.in);
-    private User user;
     private ProductList productList;
     private Drill drill;
     private PassengerCar car;
     private Truck truck;
+    UserList users;
+    User user;
+
+    public Menu(){
+        this.users = new UserList();
+        this.productList = new ProductList();
+    }
 
     //Asks for credentials and gives to method logIn();
     public void askLogin(){
-        System.out.println("Enter username: ");
-        String givenUsername = scanner.nextLine();
-        System.out.println("Enter password: ");
-        String givenPassword = scanner.nextLine();
-        user = user.getUser(givenUsername);
-        user.logIn(givenUsername, givenPassword);
+        String givenUsername = getUsername();
+        try {
+            user = users.getUser(givenUsername);
+        }catch(NullPointerException e){
+            System.out.println("User not found. ");
+            askLogin();
+        }
+        try {
+            System.out.println("Enter password: ");
+            String givenPassword = scanner.nextLine();
+            logIn(user, givenUsername, givenPassword);
+        }catch(NullPointerException e){
+            System.out.println("Wrong password. ");
+            askLogin();
+        }
     }
 
+    public void logIn(User user, String username, String password){
+
+        if(username.equalsIgnoreCase(user.getUsername())){
+            if (password.equals((user.getPassword()))){
+                menu(user);
+            }
+            else{
+                System.out.println("Incorrect Password. ");
+            }
+        }
+        else{
+            System.out.println("Incorrect Username. ");
+        }
+        System.out.println("User not found. ");
+    }
 
     //Prints menu when user found and given correct credentials
     private void logOut(){
@@ -34,25 +65,22 @@ public class Menu {
     }
 
     //Backend of main menu
-    public void menu(){
+    public void menu(User user){
         boolean loop = true;
         try{
             while(loop){
-                user.getUsername();
+                System.out.println(user.getUsername());
                 printMainMenu();
                 switch (getChoice()){
                     case 0:
                         logOut();
                     case 1:
-                        user.getUsername();
+                        System.out.println(user.getUsername());
                         printProducts();
                         askProductDetails();
-                        menu();
                     case 2:
-                        user.getUsername();
-                        int choiceCategory = getCategoryChoice();
-                        int choiceEdit = getEditManage();
-                        manageProduct(choiceCategory, choiceEdit);
+                        System.out.println(user.getUsername());
+                        manageProduct(user);
                 }
             }
         } catch (InputMismatchException e){
@@ -71,8 +99,7 @@ public class Menu {
 
     //Prints manage menu
     public int getCategoryChoice(){
-        int choice = 0;
-        System.out.println("Choose category or exit with number 0");
+        int choice;
         System.out.println( """
                     Categories: 
                     1. Drill
@@ -80,12 +107,13 @@ public class Menu {
                     3. Truck
                     """);
         try{
-            choice = getChoice();
+            System.out.println("Choose category or exit with number 0");
+            return getChoice();
 
         }catch(InputMismatchException e){
             System.out.println("Invalid input, try again. ");
         }
-        return choice;
+        return getChoice();
     }
 
     public int getEditManage(){
@@ -105,15 +133,17 @@ public class Menu {
         return choice;
     }
 
-    public void manageProduct(int choiceCategory, int choiceEdit){
+    public void manageProduct(User user){
         int id = 0;
-
+        System.out.println("Enter number of edit option or exit with 0: ");
+        int choiceEdit = getEditManage();
+        int choiceCategory;
        switch(choiceEdit) {
            case 1:
-               System.out.println("Add product");
+               choiceCategory = getCategoryChoice();
                switch (choiceCategory) {
                    case 0:
-                       menu();
+                       menu(user);
                    case 1:
                        productList.addProductToList(drill.createProduct());
                    case 2:
@@ -155,17 +185,20 @@ public class Menu {
                    productList.getProductById(id).registerObserver((Observer)user);
                }
                else {
-                   menu();
+                   menu(user);
                }
        }
     }
 
     //Prints all products
     public void printProducts(){
-        for(Product product : productList.getAllProducts()){
-            System.out.println(product.getId() + ". " + product.getBrand() + "Available: "  + product.getAvailability());
-            askProductDetails();
+        ArrayList<Product> allProducts = productList.getAllProducts();
+        int i = 0;
+        for(Product product : allProducts){
+            System.out.println(i + ". " + product.getBrand() + "  Available: "  + product.getAvailability());
+            i++;
         }
+        askProductDetails();
     }
 
     public void printProductDetails(Product product){
@@ -185,11 +218,29 @@ public class Menu {
                     """);
     }
 
+    public void printUsers(){
+        int i = 1;
+        for (User user : users.getUserList()){
+            i++;
+            System.out.println( i + ". " + user.getUsername());
+        }
+    }
+
     public void askProductDetails(){
         try {
             System.out.println("Enter number to view details or number 0 to exit: ");
             int choiceNumber = getChoice();
-            printProductDetails(productList.getProductById(choiceNumber));
+            if(choiceNumber != 0){
+                printProductDetails(productList.getProductById(choiceNumber));
+                System.out.println(" ");
+                System.out.println("Go back? Press enter");
+                printProducts();
+            }
+            else {
+                menu(user);
+            }
+
+
         }catch(InputMismatchException e){
             System.out.println("Invalid try again: ");
         }
@@ -205,6 +256,12 @@ public class Menu {
         else{
             return false;
         }
+    }
+
+    public String getUsername(){
+        printUsers();
+        System.out.println("Enter username: ");
+        return scanner.nextLine();
     }
 
     public String askBrand(){
