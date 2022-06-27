@@ -94,15 +94,12 @@ public class ProductList {
     //Check type before adding product to correct list
     public void addProductToList(Product product){
         if(product instanceof Drill){
-            int id = product.getId();
             drillList.add((Drill)product);
         }
         if(product instanceof PassengerCar){
-            int id = product.getId();
-            passengerCarList.add((PassengerCar) product);
+            passengerCarList.add((PassengerCar)product);
         }
         if(product instanceof Truck){
-            int id = product.getId();
             truckList.add((Truck)product);
         }
     }

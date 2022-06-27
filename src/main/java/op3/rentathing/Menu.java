@@ -60,17 +60,21 @@ public class Menu {
         boolean loop = true;
         try{
             while(loop){
+                user.getUsername();
                 printMainMenu();
                 switch (getChoice()){
                     case 0:
                         logOut();
                     case 1:
+                        user.getUsername();
                         printProducts();
                         askProductDetails();
                         menu();
                     case 2:
-                        printManageMenu();
-                        case 3:
+                        user.getUsername();
+                        int choiceCategory = getCategoryChoice();
+                        int choiceEdit = getEditManage();
+                        manageProduct(choiceCategory, choiceEdit);
                 }
             }
         } catch (InputMismatchException e){
@@ -88,7 +92,8 @@ public class Menu {
     }
 
     //Prints manage menu
-    public void printManageMenu(){
+    public int getCategoryChoice(){
+        int choice = 0;
         System.out.println("Choose category or exit with number 0");
         System.out.println( """
                     Categories: 
@@ -96,22 +101,78 @@ public class Menu {
                     2. Passenger Car
                     3. Truck
                     """);
-        try {
-            int categoryChoice = getChoice();
-            switch (categoryChoice){
-                case 0:
-                    menu();
-                case 1:
-                    productList.addProductToList(drill.createProduct());
-                case 2:
-                    productList.addProductToList(car.createProduct());
-                case 3:
-                    productList.addProductToList(truck.createProduct());
-            }
-        }catch (InputMismatchException e){
+        try{
+            choice = getChoice();
+
+        }catch(InputMismatchException e){
             System.out.println("Invalid input, try again. ");
-            printManageMenu();
         }
+        return choice;
+    }
+
+    public int getEditManage(){
+        int choice = 0;
+        System.out.println( """
+                    Edit
+                    1. Add
+                    2. Remove
+                    3. Edit variables
+                    """);
+        try{
+            choice = getChoice();
+
+        }catch(InputMismatchException e){
+            System.out.println("Invalid input, try again. ");
+        }
+        return choice;
+    }
+
+    public void manageProduct(int choiceCategory, int choiceEdit){
+        int id = 0;
+
+       switch(choiceEdit) {
+           case 1:
+               System.out.println("Add product");
+               switch (choiceCategory) {
+                   case 0:
+                       menu();
+                   case 1:
+                       productList.addProductToList(drill.createProduct());
+                   case 2:
+                       productList.addProductToList(car.createProduct());
+                   case 3:
+                       productList.addProductToList(truck.createProduct());
+               }
+
+           case 2:
+               System.out.println("Remove product");
+               printProducts();
+               System.out.println("Enter productID to remove product: ");
+               id = scanner.nextInt();
+               productList.removeProductFromList(productList.getProductById(id));
+
+           case 3:
+               System.out.println("Edit product");
+               printProducts();
+               System.out.println("Enter productID to edit product: ");
+               id = scanner.nextInt();
+               printProductDetails(productList.getProductById(id));
+
+               printDetailEditMenu();
+               int choice = getChoice();
+               switch(choice){
+                   case 1:
+                       System.out.println("Enter new brand name: ");
+                       String newBrand = scanner.nextLine();
+                       productList.getProductById(id).setBrand(newBrand);
+
+                   case 2:
+                       System.out.println("Enter new description: ");
+                       String newDescription = scanner.nextLine();
+                       productList.getProductById(id).setBrand(newDescription);
+               }
+       }
+
     }
 
     //Prints all products
@@ -129,6 +190,14 @@ public class Menu {
         System.out.println("Rent per day: " + product.getRent());
         System.out.println("Insurance per day: " + product.getInsurancePerDay());
         System.out.println("Available: " + product.getAvailability());
+    }
+
+    public void printDetailEditMenu(){
+        System.out.println( """
+                    Edit
+                    1. Edit brand
+                    2. Edit description
+                    """);
     }
 
     public void askProductDetails(){
