@@ -1,6 +1,5 @@
 package op3.rentathing;
 
-import java.util.Scanner;
 
 public class Drill extends Product{
 
