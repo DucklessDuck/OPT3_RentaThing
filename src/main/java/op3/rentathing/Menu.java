@@ -12,12 +12,9 @@ public class Menu {
     private Drill drill;
     private PassengerCar car;
     private Truck truck;
-    public Menu(User user){
-        this.user = user;
-    }
 
     //Asks for credentials and gives to method logIn();
-    private void askLogin(){
+    public void askLogin(){
         new Scanner(System.in);
         System.out.println("Enter username: ");
         String givenUsername = scanner.nextLine();
