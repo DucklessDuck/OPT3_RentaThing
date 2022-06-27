@@ -51,6 +51,10 @@ public abstract class Product implements Subject{
         return brand;
     }
 
+    public Product getProduct(){
+        return this;
+    }
+
     public void setBrand(String brand) {
         this.brand = brand;
     }
@@ -59,15 +63,9 @@ public abstract class Product implements Subject{
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
 
     public Double getRent() {
         return rent;
-    }
-    public void setRent(Double rent) {
-        this.rent = rent;
     }
 
     public Double getInsurancePerDay() {

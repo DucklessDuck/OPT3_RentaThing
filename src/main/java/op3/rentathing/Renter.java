@@ -29,10 +29,6 @@ public class Renter implements Observer{
         }
     }
 
-    //Returns object of class Product
-    public Product getProduct(){
-        return product;
-    }
 
     //Sets end date of rent
     public void setEndDate(){
@@ -43,7 +39,7 @@ public class Renter implements Observer{
     public ArrayList<Product> getRentedProductList(){
         ArrayList<Product> rentedProducts = new ArrayList<>();
         for(Renter rent : rentList){
-            rentedProducts.add(rent.getProduct());
+            rentedProducts.add(rent.product.getProduct());
         }
         return rentedProducts;
     }

@@ -19,26 +19,4 @@ public class Truck extends Product{
         return new Truck(menu.askBrand(), menu.askDescription(), menu.askWeight(), menu.askPayload());
     }
 
-    //Getters and setters for modifying data and data gathering
-    public Integer getWeight() {
-        return weight;
-    }
-
-    public void setWeight(Integer weight){
-       this.weight = weight;
-    }
-
-    public void setPayload(Integer payload){
-        this.payload = payload;
-    }
-
-    //Extra method for Insurance since it is based on weight of truck itself
-    public Double calculateInsurance(Integer weight){
-        return weight * 0.01;
-    }
-    //Extra method for rent since it is based on weight of payload
-    public Double calculateRent(Integer payload){
-        return payload * 0.10;
-    }
-
 }
