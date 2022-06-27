@@ -21,7 +21,7 @@ public abstract class Product {
     }
 
     //Creates a new object product based on variables passengerCar (Using the factory method pattern).
-    public abstract Product createProduct(String brand, Long description);
+    public abstract Product createProduct();
 
     public int createUniqueId(){
         return productId++;

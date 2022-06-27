@@ -6,6 +6,8 @@ public class Drill extends Product{
 
     private String type;
 
+    private Menu menu;
+
 
     //Constructor of class
     public Drill(String brand, String description, String type) {
@@ -15,9 +17,8 @@ public class Drill extends Product{
 
     //Creates a new object product based on variables drill (part of the factory method pattern)
     @Override
-    public Drill createProduct(String brand, String description){
-        String type = Menu.askType();
-        return new Drill(brand, description, type);
+    public Drill createProduct(){
+        return new Drill(menu.askBrand(), menu.askDescription(), menu.askType());
     }
 
     //Getters and setters for modifying and information gathering

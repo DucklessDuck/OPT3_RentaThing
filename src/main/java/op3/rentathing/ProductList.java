@@ -3,10 +3,12 @@ package op3.rentathing;
 import java.util.ArrayList;
 
 public class ProductList {
+    private Menu menu;
+    private Product product;
     //Using three lists to store from every category
-    ArrayList<Drill> drillList;
-    ArrayList<PassengerCar>passengerCarList;
-    ArrayList<Truck> truckList;
+    private ArrayList<Drill> drillList;
+    private ArrayList<PassengerCar>passengerCarList;
+    private ArrayList<Truck> truckList;
 
     public ProductList(){
         drillList =  new ArrayList<>();
@@ -18,11 +20,11 @@ public class ProductList {
     //Adding a few items to every list
     public void addStandardItems(){
         //Adding drills to drillList
-        drillList.add(new Drill("Bosch", "These drills or well-suited for drilling holes, installing small fasteners in wood or drywall, and other basic home projects."
+        drillList.add(new Drill("Bosch Traditional drill", "These drills or well-suited for drilling holes, installing small fasteners in wood or drywall, and other basic home projects."
                 , "Traditional drill"));
-        drillList.add(new Drill("DeWalt", "This type of drill is handy for bigger projects such as building fences, decks, and more."
+        drillList.add(new Drill("DeWalt Impact Driver", "This type of drill is handy for bigger projects such as building fences, decks, and more."
                 , "Impact Driver"));
-        drillList.add(new Drill("Makita", "The hammer drill is designed for heavy-duty yet everyday-type jobs. It’s a drill with a hefty hammer function."
+        drillList.add(new Drill("Makita Hammer Drill", "The hammer drill is designed for heavy-duty yet everyday-type jobs. It’s a drill with a hefty hammer function."
                 , "Hammer Drill"));
 
         //Adding cars to passengerCarList
@@ -83,36 +85,30 @@ public class ProductList {
     //Merge all product in all list and return that list
     public ArrayList<Product> getAllProducts(){
         ArrayList<Product> allProductList = new ArrayList<>();
-        for(Drill drill : drillList){
-            allProductList.add(drill);
-        }
-        for(PassengerCar car : passengerCarList){
-            allProductList.add(car);
-        }
-        for(Truck truck : truckList){
-            allProductList.add(truck);
-        }
+        allProductList.addAll(getDrillList());
+        allProductList.addAll(getPassengerCarList());
+        allProductList.addAll(getTruckList());
         return allProductList;
     }
 
     //Check type before adding product to correct list
-    public void addProduct(Product product){
+    public void addProductToList(Product product){
         if(product instanceof Drill){
-            Drill drill = (Drill) product;
-            drillList.add(drill);
+            int id = product.getId();
+            drillList.add((Drill)product);
         }
         if(product instanceof PassengerCar){
-            PassengerCar car = (PassengerCar) product;
-            passengerCarList.add(car);
+            int id = product.getId();
+            passengerCarList.add((PassengerCar) product);
         }
         if(product instanceof Truck){
-            Truck truck = (Truck) product;
-            truckList.add(truck);
+            int id = product.getId();
+            truckList.add((Truck)product);
         }
     }
 
     //Check type of object before able to remove from one of the lists
-    public void removeProduct(Product product){
+    public void removeProductFromList(Product product){
         if(product instanceof Drill){
             int id = product.getId();
             drillList.remove(getProductById(id));
