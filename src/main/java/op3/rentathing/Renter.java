@@ -5,7 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import static java.time.temporal.ChronoUnit.DAYS;
 
-public class Renter {
+public class Renter implements Observer{
     private Product product;
     private User user;
     private LocalDateTime startDate;
@@ -17,7 +17,16 @@ public class Renter {
         this.product = product;
         startDate = LocalDateTime.now();
         endDate = null;
-        this.rentList = new ArrayList<>();
+        rentList = new ArrayList<>();
+    }
+
+    public void update(Boolean availability){
+        if(availability){
+            System.out.println("Product now available! ");
+        }
+        else {
+            System.out.println("Product not available. ");
+        }
     }
 
     //Returns object of class Product

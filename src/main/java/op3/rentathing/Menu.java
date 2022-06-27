@@ -12,12 +12,9 @@ public class Menu {
     private Drill drill;
     private PassengerCar car;
     private Truck truck;
-    public Menu(User user){
-        this.user = user;
-    }
 
     //Asks for credentials and gives to method logIn();
-    private void askLogin(){
+    public void askLogin(){
         new Scanner(System.in);
         System.out.println("Enter username: ");
         String givenUsername = scanner.nextLine();
@@ -145,14 +142,14 @@ public class Menu {
                }
 
            case 2:
-               System.out.println("Remove product");
+               System.out.println("Remove product ");
                printProducts();
                System.out.println("Enter productID to remove product: ");
                id = scanner.nextInt();
                productList.removeProductFromList(productList.getProductById(id));
 
            case 3:
-               System.out.println("Edit product");
+               System.out.println("Edit product ");
                printProducts();
                System.out.println("Enter productID to edit product: ");
                id = scanner.nextInt();
@@ -171,6 +168,15 @@ public class Menu {
                        String newDescription = scanner.nextLine();
                        productList.getProductById(id).setBrand(newDescription);
                }
+           case 4:
+               System.out.println("Get notification when product available ");
+               if(askNotify()){
+                   productList.getProductById(id).registerObserver((Observer)user);
+               }
+               else {
+                   menu();
+               }
+
        }
 
     }
@@ -207,6 +213,18 @@ public class Menu {
             printProductDetails(productList.getProductById(choiceNumber));
         }catch(InputMismatchException e){
             System.out.println("Invalid try again: ");
+        }
+    }
+
+    public Boolean askNotify(){
+        System.out.println("Want to get notified when product is available? ");
+        System.out.println("Y/N? ");
+        String choice = scanner.nextLine();
+        if(choice.equals("Y")){
+            return true;
+        }
+        else{
+            return false;
         }
     }
 

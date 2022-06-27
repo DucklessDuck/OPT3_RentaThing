@@ -1,4 +1,9 @@
 package op3.rentathing;
 
-public class Observer {
+import java.util.ArrayList;
+import java.util.List;
+
+public interface Observer {
+
+    public void update(Boolean availability);
 }
